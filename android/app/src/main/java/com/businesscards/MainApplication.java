@@ -1,8 +1,11 @@
-package com.businesscards;
-
+package com.aacctt.receptsscanner;
+import org.reactnative.camera.RNCameraPackage;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.fetchsky.RNTextDetector.RNTextDetectorPackage;
+import com.fetchsky.RNTextDetector.RNTextDetectorPackage;
+import org.reactnative.camera.RNCameraPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -22,8 +25,10 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
-      );
+          new MainReactPackage(),
+            new RNTextDetectorPackage(),
+            new RNCameraPackage()
+            );
     }
 
     @Override

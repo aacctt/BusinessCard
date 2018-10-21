@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "134752064966",
+    "firebase_url": "https://act-receipt-scanner.firebaseio.com",
+    "project_id": "act-receipt-scanner",
+    "storage_bucket": "act-receipt-scanner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134752064966:android:59ec75ac56748418",
+        "android_client_info": {
+          "package_name": "com.aacctt.receptsscanner"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134752064966-76eeju01corvd8t16o7hsji4eajr7v4v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbFXHfOscFPl6elZ1hzYx0AsLr-Z1-9Ho"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

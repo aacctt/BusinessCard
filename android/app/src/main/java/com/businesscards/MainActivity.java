@@ -1,4 +1,4 @@
-package com.businesscards;
+package com.aacctt.receptsscanner;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "BusinessCards";
+        return "ACTReceiptScanner";
     }
 }
