@@ -5,7 +5,7 @@
  */
 
 import React, { Component } from "react";
-import { TouchableOpacity, View, ImageBackground } from "react-native";
+import { TouchableOpacity, View, ImageBackground, ActivityIndicator } from "react-native";
 import { RNCamera as Camera } from "react-native-camera";
 import RNTextDetector from "react-native-text-detector";
 import { setOcr} from "../reducer"
@@ -14,9 +14,11 @@ import { connect} from 'react-redux';
 import style, { screenHeight, screenWidth } from "../styles";
 
 const PICTURE_OPTIONS = {
-  quality: 1,
-  fixOrientation: true,
-  forceUpOrientation: true
+	quality: 1,
+	fixOrientation: true,
+	forceUpOrientation: true,
+	base64: true,
+	skipProcessing: true,
 };
 
 class HomePage extends React.Component {
@@ -58,9 +60,6 @@ class HomePage extends React.Component {
    * @author Zain Sajjad
    */
   takePicture = async camera => {
-    this.setState({
-      loading: true
-    });
     try {
       const data = await camera.takePictureAsync(PICTURE_OPTIONS);
       if (!data.uri) {
@@ -96,14 +95,22 @@ class HomePage extends React.Component {
    * @author Zain Sajjad
    */
   processImage = async (uri, imageProperties) => {
+    this.setState({
+      loading: true
+    });
     const visionResp = await RNTextDetector.detectFromUri(uri);
     console.log(visionResp);
     this.props.setOcr(visionResp);
     if (!(visionResp && visionResp.length > 0)) {
       throw "UNMATCHED";
     }
+    if(imageProperties.height === undefined || imageProperties.width === undefined){
+    	this.props.navigation.navigate('Result');
+    	this.setState({image : null});
+    }
     this.setState({
-      visionResp: this.mapVisionRespToScreen(visionResp, imageProperties)
+      visionResp: this.mapVisionRespToScreen(visionResp, imageProperties),
+      loading : false
     });
   };
 
@@ -134,6 +141,11 @@ class HomePage extends React.Component {
       };
     });
   };
+
+  goToResult(){
+    this.setState({image : null});
+    this.props.navigation.navigate('Result')
+  }
 
   /**
    * React Native render function
@@ -170,6 +182,14 @@ class HomePage extends React.Component {
             }}
           </Camera>
         ) : null}
+        {(this.state.loading) ?
+          <ActivityIndicator
+            animating={this.state.loading}
+            size="large"
+          />
+          :
+          null
+        }
         {this.state.image ? (
           <ImageBackground
             source={{ uri: this.state.image }}
@@ -181,7 +201,7 @@ class HomePage extends React.Component {
               return (
                 <TouchableOpacity
                   style={[style.boundingRect, item.position]}
-                  onPress = {() => this.props.navigation.navigate('Result')}
+                  onPress = {() => this.goToResult()}
                   key={item.text}
                 />
               );
